@@ -21,7 +21,7 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const getMovieTrends = async()=>{
 
         const result = await api.get("/trending/movie/day?language=pt-br");
-        const movies:ISchemaMovie[] = (result.data.results).slice(0,3);
+        const movies:ISchemaMovie[] = (result.data.results).slice(0,7);
                 
         movies.map((movie)=>{
             movie.poster_path = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;

@@ -1,6 +1,7 @@
 import {StyledHeader, StyledMenuButtons} from './style';
 import {AiOutlineMenu} from 'react-icons/ai';
 import {useState, useEffect} from 'react';
+import {SearchBar} from '../SearchBar/index';
 
 export const Header = ()=>{
     const [isMobile, setIsMobile] = useState(false);
@@ -20,12 +21,13 @@ export const Header = ()=>{
         <>
             <StyledHeader>
             <span>On Movie</span>
-
+            <SearchBar/>
             {isMobile ? 
-
+                
             <span onClick={()=>setMenuList(menuList ? false : true)}>
+                
                 <AiOutlineMenu/>
-
+                
                 {menuList && 
                 <StyledMenuButtons>
                     <span>Filmes</span>

@@ -8,6 +8,8 @@ export const StyledHeader = styled.header`
     justify-content: space-between;
     background-color: var(--color-secound);
     position: relative;
+    align-items: center;
+    gap: 15px;
     
     span{
         font-weight: bold;
@@ -32,6 +34,7 @@ export const StyledMenuButtons = styled.div`
     opacity: 0;
     transform: translateY(20px);
     animation: fadeIn 0.3s ease-in-out forwards;
+    z-index: 2;
 
     .span {
         font-weight: bold;
