@@ -1,6 +1,6 @@
 import AliceCarousel from "react-alice-carousel"
 import { StyledContainerFilmsPopulars } from "./style"
-import { useContext, useEffect, useState } from "react";
+import { useContext, useEffect } from "react";
 import { MovieContext } from "../../providers/movie.context";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import {TitlesCategories} from '../Titles/index';
