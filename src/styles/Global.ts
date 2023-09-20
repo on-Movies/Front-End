@@ -1,4 +1,5 @@
-import {createGlobalStyle} from 'styled-components';
+import styled, {createGlobalStyle} from 'styled-components';
+import {AiOutlineArrowRight,AiOutlineArrowLeft} from 'react-icons/ai';
 
 export const StyledGlobal = createGlobalStyle`
 
@@ -17,4 +18,36 @@ export const StyledGlobal = createGlobalStyle`
         background-color: var(--color-brand);
         color: var( --color-white);
     }
+
+    .titles{
+        margin-left: 15px;
+    }
+
+    .buttonGlobal{
+        border: none;
+        background-color: var(--color-secound);
+        color: var(--color-white);
+        padding: 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        margin-top: 25px;
+        max-width: 150px;
+
+        @media(min-width: 600px){
+            background-color: var(--color-brand);
+    }
+    }
+`;
+
+export const RightArrow = styled(AiOutlineArrowRight)`
+
+    padding: 10px;
+    background-color: var(--color-secound);
+    cursor: pointer;
+`;
+
+export const LeftArrow = styled(AiOutlineArrowLeft)`
+    padding: 10px;
+    background-color: var(--color-secound);
+    cursor: pointer;
 `;
