@@ -10,12 +10,20 @@ interface TMovieContext{
     getMovieTrends: () => Promise<void>
     movieTrends: ISchemaMovie[];
     setMovieTrends: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
+
+    moviePopulars: ISchemaMovie[]
+    getMoviePopulars: (numberPagination:number) => Promise<void>
+
+    getMovieHighlightWeek: () => Promise<ISchemaMovie | void>;
+    movieHighlight:ISchemaMovie | {};
 }
 
 export const MovieContext = createContext({} as TMovieContext)
 
 export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [movieTrends, setMovieTrends] = useState<Array<ISchemaMovie>>([])
+    const [moviePopulars, setMoviePopulars] = useState<Array<ISchemaMovie>>([])
+    const [movieHighlight, setMovieHighlight] = useState<ISchemaMovie | {}>({})
 
 
     const getMovieTrends = async()=>{
@@ -29,6 +37,22 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         setMovieTrends(movies);
     }
 
+    const getMoviePopulars = async(numberPagination:number)=>{
+        
+        const result:ISchemaMovie[] = (await api.get(`movie/popular?language=pt-br&page=${numberPagination}`)).data.results;
+
+        result.map((movie)=>{
+            movie.poster_path  = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        })
+        setMoviePopulars(result);
+    }
+
+    const getMovieHighlightWeek = async():Promise<void>=>{
+        const result: ISchemaMovie[] = (await api.get('movie/top_rated?language=pt-br&page=1')).data.results;
+        result[0].poster_path = 'https://image.tmdb.org/t/p/w500' + result[0].poster_path
+        
+        setMovieHighlight(result[0]);
+    }
     
 
     return(
@@ -36,7 +60,11 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         value={{
             getMovieTrends,
             movieTrends,
-            setMovieTrends
+            setMovieTrends,
+            getMoviePopulars,
+            moviePopulars,
+            getMovieHighlightWeek,
+            movieHighlight
         }}>
 
             {children}
