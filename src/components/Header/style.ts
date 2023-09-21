@@ -10,16 +10,25 @@ export const StyledHeader = styled.header`
     position: relative;
     align-items: center;
     gap: 15px;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 3;
     
     span{
         font-weight: bold;
         cursor: pointer;
+        margin-right: 25px;
     }
 
     div{
         display: flex;
         gap: 25px;
         cursor: pointer;
+
+        @media(min-width: 377px){
+            gap: 0;
+}
     }
 `;
 
@@ -38,6 +47,7 @@ export const StyledMenuButtons = styled.div`
 
     .span {
         font-weight: bold;
+        
     }
 
     @keyframes fadeIn {

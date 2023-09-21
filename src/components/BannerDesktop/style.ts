@@ -6,6 +6,7 @@ export const StyledContainerBannersIsDesktop = styled.div`
     max-width: 100%;
     display: flex;
     display: flex;
+    margin-top: 85px;
 
     .boxMain{
         width: 50%;

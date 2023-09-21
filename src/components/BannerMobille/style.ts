@@ -6,6 +6,7 @@ export const StyledContainerBannersIsMobille = styled.div`
     max-width: 100%;
     display: flex;
     flex-direction: column;
+    margin-top: 85px;
 
     img{
         width: 100%;

@@ -16,6 +16,32 @@ interface TMovieContext{
 
     getMovieHighlightWeek: () => Promise<ISchemaMovie | void>;
     movieHighlight:ISchemaMovie | {};
+
+    movieCategoriesDrama:JSX.Element[];
+    setMovieCategoriesDrama:React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesAction:JSX.Element[];
+    setMovieCategoriesAction:React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesAdventure: JSX.Element[];
+    setMovieCategoriesAdventure:React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesAnimation: JSX.Element[];
+    setMovieCategoriesAnimation: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesComedy: JSX.Element[];
+    setMovieCategoriesComedy: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesCrime: JSX.Element[];
+    setMovieCategoriesCrime: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesHorror: JSX.Element[];
+    setMovieCategoriesHorror: React.Dispatch<React.SetStateAction<JSX.Element[]>>;
+
+    movieCategoriesScienceFiction: JSX.Element[];
+    setMovieCategoriesScienceFiction: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+
+    getMovieByCategories: (genre: number, setMovieCategories: React.Dispatch<React.SetStateAction<JSX.Element[]>>,numberPagination:()=>number) => Promise<void>
 }
 
 export const MovieContext = createContext({} as TMovieContext)
@@ -24,6 +50,16 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [movieTrends, setMovieTrends] = useState<Array<ISchemaMovie>>([])
     const [moviePopulars, setMoviePopulars] = useState<Array<ISchemaMovie>>([])
     const [movieHighlight, setMovieHighlight] = useState<ISchemaMovie | {}>({})
+    const [movieCategoriesDrama, setMovieCategoriesDrama] = useState<JSX.Element[]>([])
+    const [movieCategoriesAction, setMovieCategoriesAction] = useState<JSX.Element[]>([])
+    const [movieCategoriesAdventure, setMovieCategoriesAdventure] = useState<JSX.Element[]>([])
+
+    const [movieCategoriesAnimation, setMovieCategoriesAnimation] = useState<JSX.Element[]>([])
+    const [movieCategoriesComedy, setMovieCategoriesComedy] = useState<JSX.Element[]>([])
+    const [movieCategoriesCrime, setMovieCategoriesCrime] = useState<JSX.Element[]>([])
+
+    const [movieCategoriesHorror, setMovieCategoriesHorror] = useState<JSX.Element[]>([])
+    const [movieCategoriesScienceFiction, setMovieCategoriesScienceFiction] = useState<JSX.Element[]>([])
 
 
     const getMovieTrends = async()=>{
@@ -37,6 +73,8 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         setMovieTrends(movies);
     }
 
+
+
     const getMoviePopulars = async(numberPagination:number)=>{
         
         const result:ISchemaMovie[] = (await api.get(`movie/popular?language=pt-br&page=${numberPagination}`)).data.results;
@@ -47,14 +85,31 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         setMoviePopulars(result);
     }
 
+
+
     const getMovieHighlightWeek = async():Promise<void>=>{
         const result: ISchemaMovie[] = (await api.get('movie/top_rated?language=pt-br&page=1')).data.results;
         result[0].poster_path = 'https://image.tmdb.org/t/p/w500' + result[0].poster_path
         
         setMovieHighlight(result[0]);
     }
-    
 
+
+    const getMovieByCategories = async (genre:number, setMovieCategories:React.Dispatch<React.SetStateAction<JSX.Element[]>>,numberPagination:()=>number)=>{
+
+        const result:ISchemaMovie[] = (await api.get(`discover/movie?with_genres=${genre}&language=pt-br&page=${numberPagination()}`)).data.results;
+
+        const arrayImgs = result.map((movie)=>{
+            return(
+                <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}/>
+            )
+        
+        })
+        setMovieCategories(arrayImgs)
+
+    }
+
+   
     return(
         <MovieContext.Provider
         value={{
@@ -64,7 +119,25 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             getMoviePopulars,
             moviePopulars,
             getMovieHighlightWeek,
-            movieHighlight
+            movieHighlight,
+           setMovieCategoriesAction,
+            movieCategoriesDrama,
+            setMovieCategoriesAdventure,
+            movieCategoriesAdventure,
+            getMovieByCategories,
+            setMovieCategoriesDrama,
+            movieCategoriesAction,
+            setMovieCategoriesScienceFiction,
+            movieCategoriesAnimation,
+            movieCategoriesComedy,
+            movieCategoriesCrime,
+            movieCategoriesHorror,
+            movieCategoriesScienceFiction,
+            setMovieCategoriesAnimation,
+            setMovieCategoriesComedy,
+            setMovieCategoriesCrime,
+            setMovieCategoriesHorror
+       
         }}>
 
             {children}
