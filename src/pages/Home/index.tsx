@@ -4,6 +4,7 @@ import { BannerDesktop } from "../../components/BannerDesktop";
 import { BannerMobille } from "../../components/BannerMobille";
 import { MoviePopular } from '../../components/MoviePopular';
 import { HighlightWeek } from '../../components/HighlightWeek';
+import {MovieCategories} from '../../components/MovieCategories';
 
 export const Home = ()=>{
     const [isDesktop, setDesktop] = useState(false);
@@ -32,6 +33,9 @@ export const Home = ()=>{
 
             <MoviePopular/>
             <HighlightWeek/>
+        <main>
+            <MovieCategories/>
+        </main>
      </>
     )
 }

@@ -1,8 +1,7 @@
 import {styled} from 'styled-components';
 
-export const StyledContainerFilmsPopulars = styled.section`
+export const StyledContainerFilmsCategories = styled.section`
 
-    margin-top: 50px;
     max-width: 100%;
     padding-left:15px;
     display: flex;
