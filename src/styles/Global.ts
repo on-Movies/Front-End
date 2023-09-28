@@ -37,6 +37,22 @@ export const StyledGlobal = createGlobalStyle`
             background-color: var(--color-brand);
     }
     }
+
+    .buttonFiltrar{
+        border: none;
+        background-color: var(--color-brand);
+        color: var(--color-white);
+        padding: 15px;
+        border-radius: 50px;
+        cursor: pointer;
+        max-width: 150px;
+        font-weight: bold;
+
+        @media(min-width: 600px){
+            background-color: var(--color-brand);
+            font-weight: bold;
+    }
+    }
 `;
 
 export const RightArrow = styled(AiOutlineArrowRight)`
