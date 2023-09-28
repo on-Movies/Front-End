@@ -12,7 +12,7 @@ export const Filter = ()=>{
     const {movieFilter,setFilter} = useContext(MovieContext)
 
 
-    const [selectedValues, setSelectedValues] = useState({
+    const [selectedValues,] = useState({
         18: false,
         35: false,
         28: false,
@@ -68,7 +68,7 @@ export const Filter = ()=>{
                 <h3>Filtragens</h3>
 
                 <StyledFormFilter onSubmit={formik.handleSubmit}>
-                {Object.entries(selectedValues).map(([id, checked]) => (
+                {Object.entries(selectedValues).map(([id,]) => (
                 <span key={id}>
                     {id === '18' && 'Drama'}
                     {id === '35' && 'Comedia'}

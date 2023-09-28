@@ -1,5 +1,5 @@
 import {StyledMovieFilterContainer,StyledCleanFilter} from './style';
-import {useContext, useState} from 'react';
+import {useContext} from 'react';
 import {MovieContext} from '../../providers/movie.context';
 
 
@@ -7,7 +7,6 @@ export const MovieSearch = ()=>{
 
     const {setMoviesSearched, moviesSearched} = useContext(MovieContext);
 
-    // const [pagination,setPagination] = useState(1);
 
     const itemsMovieFilters:React.ReactNode[] = [];
 
