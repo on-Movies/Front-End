@@ -42,7 +42,29 @@ interface TMovieContext{
     setMovieCategoriesScienceFiction: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 
     getMovieByCategories: (genre: number, setMovieCategories: React.Dispatch<React.SetStateAction<JSX.Element[]>>,numberPagination:()=>number) => Promise<void>
+
+    movieFilter: (categories: string[], populariedade: number | boolean, minYear: string | boolean, maxYear: string | boolean,pagination:number) => Promise<void>
+
+    filter: boolean;
+    setFilter: React.Dispatch<React.SetStateAction<boolean>>
+
+    moviesFilters: ISchemaMovie[]
+    setMoviesFilters: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
+
+    getMovieSearched: (valueSearched: string) => Promise<void>;
+
+    moviesSearched: ISchemaMovie[];
+    setMoviesSearched: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
 }
+
+export const valueFilter = {
+
+    categories:[''],
+    populariedade:0 || false,
+    minYear: '2018' && false,
+    maxYear: '' || false,    
+}
+
 
 export const MovieContext = createContext({} as TMovieContext)
 
@@ -61,6 +83,10 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [movieCategoriesHorror, setMovieCategoriesHorror] = useState<JSX.Element[]>([])
     const [movieCategoriesScienceFiction, setMovieCategoriesScienceFiction] = useState<JSX.Element[]>([])
 
+    const [filter, setFilter] = useState(false);
+    const [moviesFilters, setMoviesFilters] = useState<Array<ISchemaMovie>>([])
+
+    const [moviesSearched, setMoviesSearched] = useState<Array<ISchemaMovie>>([])
 
     const getMovieTrends = async()=>{
 
@@ -89,9 +115,9 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
     const getMovieHighlightWeek = async():Promise<void>=>{
         const result: ISchemaMovie[] = (await api.get('movie/top_rated?language=pt-br&page=1')).data.results;
-        result[0].poster_path = 'https://image.tmdb.org/t/p/w500' + result[0].poster_path
+        result[10].poster_path = 'https://image.tmdb.org/t/p/w500' + result[10].poster_path
         
-        setMovieHighlight(result[0]);
+        setMovieHighlight(result[10]);
     }
 
 
@@ -106,6 +132,45 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         
         })
         setMovieCategories(arrayImgs)
+    }
+
+    const movieFilter = 
+    async (categories:string[],
+         populariedade:number | boolean, 
+         minYear: string | boolean, 
+         maxYear:string | boolean,
+         pagination:number)=>{
+
+            let dateMin:string;
+            let dateMax:string;
+
+            {minYear ? dateMin = minYear as string : dateMin = ''}
+            {maxYear ? dateMax = maxYear as string : dateMax = ''}
+             
+            const minYaer = dateMin.split('-')[0]
+            const maxYaer = dateMax.split('-')[0]
+            
+            const resultFilter:ISchemaMovie[] = (await api.get(`discover/movie?with_genres=${categories}${populariedade ? `&sort_by=${populariedade}desc`: ''}${minYear ? `&primary_release_date.gte=${minYaer}` : ''}${maxYear ? `&primary_release_date.lte=${maxYaer}` : ''}&language=pt-br&page=${pagination}`)).data.results
+
+            resultFilter.map((movie)=>{
+                movie.poster_path  = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+            })
+            
+            setMoviesFilters(resultFilter);
+            setMoviesSearched([]);
+    }
+
+    
+    const getMovieSearched = async(valueSearched:string)=>{
+
+        const resultSearched:ISchemaMovie[] = (await api.get(`https://api.themoviedb.org/3/search/movie?query=${valueSearched}&language=pt-br`)).data.results
+
+        resultSearched.map((movie)=>{
+            movie.poster_path  = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        })
+
+        setMoviesSearched(resultSearched);
+        setMoviesFilters([])
 
     }
 
@@ -136,8 +201,15 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             setMovieCategoriesAnimation,
             setMovieCategoriesComedy,
             setMovieCategoriesCrime,
-            setMovieCategoriesHorror
-       
+            setMovieCategoriesHorror,
+            movieFilter,
+            filter,
+            setFilter,
+            moviesFilters,
+            setMoviesFilters,
+            getMovieSearched,
+            moviesSearched,
+            setMoviesSearched
         }}>
 
             {children}
