@@ -14,6 +14,7 @@ export const StyledHeader = styled.header`
     top: 0;
     width: 100%;
     z-index: 3;
+
     
     span{
         font-weight: bold;
@@ -26,8 +27,17 @@ export const StyledHeader = styled.header`
         gap: 25px;
         cursor: pointer;
 
-        @media(min-width: 377px){
-            gap: 0;
+        @media(min-width: 712px){
+            gap: 0px;
+            width: 225px; 
+             align-items: center;
+          
+            margin-right: 60px;
+
+            button{
+           
+            margin-right: 15px;
+        }
 }
     }
 `;
@@ -44,6 +54,7 @@ export const StyledMenuButtons = styled.div`
     transform: translateY(20px);
     animation: fadeIn 0.3s ease-in-out forwards;
     z-index: 2;
+    align-items: center;
 
     .span {
         font-weight: bold;
