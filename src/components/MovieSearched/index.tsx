@@ -1,18 +1,19 @@
 import {StyledMovieFilterContainer,StyledCleanFilter} from './style';
 import {useContext} from 'react';
 import {MovieContext} from '../../providers/movie.context';
+import {useNavigate} from 'react-router-dom';
 
 
 export const MovieSearch = ()=>{
 
     const {setMoviesSearched, moviesSearched} = useContext(MovieContext);
-
+    const navigate = useNavigate();
 
     const itemsMovieFilters:React.ReactNode[] = [];
 
     
     moviesSearched.map((movie)=>{
-        itemsMovieFilters.push(<img src={movie.poster_path}/>)
+        itemsMovieFilters.push(<img src={movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>)
     })
 
 

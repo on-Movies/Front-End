@@ -4,12 +4,13 @@ import {useState, useEffect, useContext} from 'react';
 import {SearchBar} from '../SearchBar/index';
 import {Filter} from '../Filter';
 import {MovieContext} from '../../providers/movie.context';
-
+import { useNavigate} from 'react-router-dom';
 export const Header = ()=>{
     const [isMobile, setIsMobile] = useState(false);
     const [menuList, setMenuList] = useState(false);
 
     const {filter,setFilter} = useContext(MovieContext);
+    const navigate = useNavigate();
     
 
     useEffect(() => {
@@ -25,7 +26,7 @@ export const Header = ()=>{
     return(
         <>
             <StyledHeader>
-            <span>On Movie</span>
+            <span onClick={()=>navigate('/')}>On Movie</span>
             <SearchBar/>
             {isMobile ? 
                 

@@ -2,11 +2,15 @@ import AliceCarousel from 'react-alice-carousel';
 import {StyledContainerBannersIsDesktop} from './style';
 import { useContext, useEffect } from 'react';
 import { MovieContext } from '../../providers/movie.context';
+import { useNavigate } from 'react-router-dom';
+
 
 
 export const BannerDesktop = ()=>{
 
     const {getMovieTrends,movieTrends} = useContext(MovieContext);
+    const navigate = useNavigate();
+
 
     const itemsBanners:React.ReactNode[] = [];
 
@@ -16,7 +20,7 @@ export const BannerDesktop = ()=>{
     },[])
     
     movieTrends.map((movie)=>{
-        itemsBanners.push(<img src={movie.poster_path}/>);
+        itemsBanners.push(<img src={movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>);
     })
 
     return(
