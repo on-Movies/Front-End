@@ -1,7 +1,7 @@
 import {StyledGlobal} from './styles/Global.ts';
-import {Home} from './pages/Home';
 import {Header} from './components/Header';
 import {Footer} from './components/Footer';
+import {Router} from './routes/routes.tsx';
 
 function App() {
 
@@ -9,7 +9,7 @@ function App() {
         <>
             <StyledGlobal/>
             <Header/>
-            <Home/>
+            <Router/>
             <Footer/>
         </>
   )

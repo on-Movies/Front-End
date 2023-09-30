@@ -4,10 +4,12 @@ import { useContext, useEffect} from "react";
 import { MovieContext } from "../../providers/movie.context";
 import 'react-alice-carousel/lib/alice-carousel.css';
 import {TitlesCategories} from '../Titles/index';
+import {useNavigate} from 'react-router-dom';
 
 export const MoviePopular = ()=>{
 
     const {getMoviePopulars,moviePopulars} = useContext(MovieContext);
+    const navigate = useNavigate();
 
     const itemsMoviePorpulars:React.ReactNode[] = [];
     
@@ -18,7 +20,7 @@ export const MoviePopular = ()=>{
 
     
     moviePopulars.map((movie)=>{
-        itemsMoviePorpulars.push(<img src={movie.poster_path}/>);
+        itemsMoviePorpulars.push(<img src={movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>);
     })
 
 
