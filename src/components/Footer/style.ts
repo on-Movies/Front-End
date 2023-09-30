@@ -9,6 +9,8 @@ export const StyledFooter = styled.footer`
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+    /* position:static;
+    bottom: 0; */
 
     @media(min-width: 768px){
         flex-direction: row;

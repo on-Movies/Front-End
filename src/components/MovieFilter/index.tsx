@@ -2,6 +2,7 @@ import {StyledMovieFilterContainer,StyledCleanFilter} from './style';
 import {useContext, useState} from 'react';
 import {MovieContext} from '../../providers/movie.context';
 import {valueFilter} from '../../providers/movie.context'
+import {useNavigate} from 'react-router-dom';
 
 
 export const MovieFilter = ()=>{
@@ -9,11 +10,13 @@ export const MovieFilter = ()=>{
     const {moviesFilters,movieFilter,setMoviesFilters} = useContext(MovieContext);
     const [pagination,setPagination] = useState(1);
 
+    const navigate = useNavigate();
+
     const itemsMovieFilters:React.ReactNode[] = [];
 
     
     moviesFilters.map((movie)=>{
-        itemsMovieFilters.push(<img src={movie.poster_path}/>)
+        itemsMovieFilters.push(<img src={movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>)
     })
 
 

@@ -1,6 +1,7 @@
 import { ReactNode, createContext,useState} from "react";
 import {api} from '../services/api';
-import { ISchemaMovie} from '../interfaces/movie.interface';
+import { ISchemaMovie,ISchemaMovieIndividual, ISchemaWatchMovie} from '../interfaces/movie.interface';
+import {useNavigate} from 'react-router-dom';
 
 interface TMovieProviderProps {
     children: ReactNode
@@ -55,6 +56,13 @@ interface TMovieContext{
 
     moviesSearched: ISchemaMovie[];
     setMoviesSearched: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
+
+    getMovieIndividual: (idMovie: number) => Promise<void>;
+    movieIndividual:ISchemaMovieIndividual | {};
+
+    movieWatchMovie:ISchemaWatchMovie | null;
+    setWatchMovie:React.Dispatch<React.SetStateAction<ISchemaWatchMovie | null>>
+
 }
 
 export const valueFilter = {
@@ -87,6 +95,12 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [moviesFilters, setMoviesFilters] = useState<Array<ISchemaMovie>>([])
 
     const [moviesSearched, setMoviesSearched] = useState<Array<ISchemaMovie>>([])
+    const [movieIndividual, setMovieIndividual] = useState<ISchemaMovieIndividual | {}>({})
+
+    const [movieWatchMovie, setWatchMovie] = useState<ISchemaWatchMovie | null>(null)
+
+    const navigate = useNavigate();
+    
 
     const getMovieTrends = async()=>{
 
@@ -127,7 +141,7 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
         const arrayImgs = result.map((movie)=>{
             return(
-                <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path}/>
+                <img src={'https://image.tmdb.org/t/p/w500' + movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>
             )
         
         })
@@ -174,7 +188,31 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
     }
 
-   
+    const getMovieIndividual = async(idMovie:number)=>{
+        
+        const movie:ISchemaMovieIndividual = (await api.get(`https://api.themoviedb.org/3/movie/${idMovie}?language=pt-br&append_to_response=videos,images,similar`)).data
+        const clientWatch:ISchemaWatchMovie = (await api.get(`https://api.themoviedb.org/3/movie/${idMovie}/watch/providers`)).data.results.BR
+
+        clientWatch?.buy?.map((img)=>{
+            img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
+        })
+
+        clientWatch?.flatrate?.map((img)=>{
+            img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
+        })
+
+        clientWatch?.rent?.map((img)=>{
+            img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
+        })
+
+        movie.poster_path = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        movie.backdrop_path = 'https://image.tmdb.org/t/p/w500' + movie.backdrop_path
+
+        setMovieIndividual(movie);
+        setWatchMovie(clientWatch);
+    }
+
+    
     return(
         <MovieContext.Provider
         value={{
@@ -209,7 +247,11 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             setMoviesFilters,
             getMovieSearched,
             moviesSearched,
-            setMoviesSearched
+            setMoviesSearched,
+            getMovieIndividual,
+            movieIndividual,
+            movieWatchMovie,
+            setWatchMovie
         }}>
 
             {children}
