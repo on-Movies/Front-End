@@ -40,7 +40,7 @@ export const ContainerInfoMovie = ({hasVideo,
                               
                                 }:ContainerInfoMovieProps)=>{
     
-    const {movieWatchMovie} = useContext(MovieContext);
+    const {movieWatchMovie,cast} = useContext(MovieContext);
 
     let movieProvider = movieWatchMovie as ISchemaWatchMovie
 
@@ -52,7 +52,6 @@ export const ContainerInfoMovie = ({hasVideo,
         movieProvider = movieWatchMovie as ISchemaWatchMovie
 
     },[movieWatchMovie])
-
 
     return(
         <StyledContainerInfoMovie hasVideo={hasVideo} img={img} imgMobile={imgMobille}>
