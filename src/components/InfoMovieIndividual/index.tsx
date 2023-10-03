@@ -53,7 +53,6 @@ export const ContainerInfoMovie = ({hasVideo,
 
     },[movieWatchMovie])
 
-
     return(
         <StyledContainerInfoMovie hasVideo={hasVideo} img={img} imgMobile={imgMobille}>
             <div className='box1'>

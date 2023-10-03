@@ -1,28 +1,16 @@
 import {styled} from 'styled-components';
 
-export const StyledContainerIframe = styled.section`
+export const StyledSectionCastMovie = styled.section`
 
-    iframe{
-        width: 100%;
-        height: 350px;
-        margin-top: 85px;
-        
-        @media(min-width: 621px){
-            height: 600px;
-            
-        }
-    }
-`;
-
-export const StyledContainerMovieSimilares = styled.section`
     max-width: 100%;
     padding: 15px;
     ul{
         width: 200px;
         
     }
-
-    img{
+        div{
+          
+            img{
                 width: 180px;
                 border-radius: 10px;
                 height: 250px;
@@ -36,5 +24,13 @@ export const StyledContainerMovieSimilares = styled.section`
                     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
                 }
             }
+            span{
+                display: flex;
+                flex-direction: column;
+                font-weight: bold;
+                
+            }
 
+        }
+        
 `;
