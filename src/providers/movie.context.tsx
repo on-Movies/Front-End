@@ -1,6 +1,6 @@
 import { ReactNode, createContext,useState} from "react";
 import {api} from '../services/api';
-import { ISchemaMovie,ISchemaMovieIndividual, ISchemaWatchMovie} from '../interfaces/movie.interface';
+import { ISchemaAuthorsMovie, ISchemaMovie,ISchemaMovieIndividual, ISchemaWatchMovie} from '../interfaces/movie.interface';
 import {useNavigate} from 'react-router-dom';
 
 interface TMovieProviderProps {
@@ -63,6 +63,12 @@ interface TMovieContext{
     movieWatchMovie:ISchemaWatchMovie | null;
     setWatchMovie:React.Dispatch<React.SetStateAction<ISchemaWatchMovie | null>>
 
+    cast:ISchemaAuthorsMovie | null;
+    setCast:React.Dispatch<React.SetStateAction<ISchemaAuthorsMovie | null>>
+
+    movieSimilares:ISchemaMovie[];
+
+
 }
 
 export const valueFilter = {
@@ -98,6 +104,9 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [movieIndividual, setMovieIndividual] = useState<ISchemaMovieIndividual | {}>({})
 
     const [movieWatchMovie, setWatchMovie] = useState<ISchemaWatchMovie | null>(null)
+
+    const [cast, setCast] = useState<ISchemaAuthorsMovie | null>(null)
+    const [movieSimilares, setMovieSimilares] = useState<Array<ISchemaMovie>>([])
 
     const navigate = useNavigate();
     
@@ -192,7 +201,17 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         
         const movie:ISchemaMovieIndividual = (await api.get(`https://api.themoviedb.org/3/movie/${idMovie}?language=pt-br&append_to_response=videos,images,similar`)).data
         const clientWatch:ISchemaWatchMovie = (await api.get(`https://api.themoviedb.org/3/movie/${idMovie}/watch/providers`)).data.results.BR
+        const getAuthorsMovie:ISchemaAuthorsMovie = (await api.get(`https://api.themoviedb.org/3/movie/${idMovie}/credits?language=pt-br`)).data;
 
+        
+        movie.similar.results.map((movie)=>{
+            movie.poster_path = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
+        })
+
+        getAuthorsMovie.cast.map((cast)=>{
+            cast.profile_path = 'https://image.tmdb.org/t/p/w500' + cast.profile_path
+        })
+        
         clientWatch?.buy?.map((img)=>{
             img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
         })
@@ -200,16 +219,21 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
         clientWatch?.flatrate?.map((img)=>{
             img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
         })
-
+        
         clientWatch?.rent?.map((img)=>{
             img.logo_path = 'https://image.tmdb.org/t/p/w500' + img.logo_path
         })
-
+        
         movie.poster_path = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
         movie.backdrop_path = 'https://image.tmdb.org/t/p/w500' + movie.backdrop_path
-
+        
         setMovieIndividual(movie);
         setWatchMovie(clientWatch);
+        setCast(getAuthorsMovie);
+
+        const movieSimilar = movie.similar.results as ISchemaMovie[]
+
+        setMovieSimilares(movieSimilar);
     }
 
     
@@ -251,7 +275,10 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             getMovieIndividual,
             movieIndividual,
             movieWatchMovie,
-            setWatchMovie
+            setWatchMovie,
+            cast,
+            setCast,
+            movieSimilares
         }}>
 
             {children}

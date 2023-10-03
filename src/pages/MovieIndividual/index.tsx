@@ -1,21 +1,25 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import {useEffect} from 'react';
 import {useContext} from 'react';
 import {MovieContext} from '../../providers/movie.context';
-import {StyledContainerIframe} from './style';
+import {StyledContainerIframe,StyledContainerMovieSimilares} from './style';
 import { ISchemaMovieIndividual } from "../../interfaces/movie.interface";
 import Yutube from 'react-youtube';
 import {ContainerInfoMovie} from '../../components/InfoMovieIndividual';
+import {CastMovie} from '../../components/CastMovie';
+import AliceCarousel, {} from 'react-alice-carousel';
 
 export const MovieIndividual = ()=>{
 
-    const {getMovieIndividual,movieIndividual} = useContext(MovieContext);
+    const {getMovieIndividual,movieIndividual,movieSimilares} = useContext(MovieContext);
     let movie = movieIndividual as ISchemaMovieIndividual;
+
+    const navigate = useNavigate();
+    const itemsMovieSimilares:React.ReactNode[] = [];
     
     const {id} = useParams();
 
     useEffect(()=>{
-        
         getMovieIndividual(Number(id))
     },[])
 
@@ -24,6 +28,13 @@ export const MovieIndividual = ()=>{
         movie = movieIndividual as ISchemaMovieIndividual
         
     },[movieIndividual])
+
+
+    movieSimilares.map((movie)=>{
+        itemsMovieSimilares.push(<img src={movie.poster_path} onClick={()=>{navigate(`../movie/${movie.id}`); window.location.reload();}}/>)
+    })
+
+    console.log(itemsMovieSimilares);
 
     return(
 
@@ -46,6 +57,18 @@ export const MovieIndividual = ()=>{
                 vote_average={movie.vote_average}
                 vote_count={movie.vote_count}
                 />
+                <CastMovie/>
+                <StyledContainerMovieSimilares>
+                    <h3>Filmes Similares</h3>
+                        <AliceCarousel 
+                    mouseTracking items={itemsMovieSimilares} 
+                    infinite={false} 
+                    autoPlay={false}
+                    disableButtonsControls={false}
+                    disableDotsControls={true}
+                />
+
+                </StyledContainerMovieSimilares>
             </main>
 
         </>
