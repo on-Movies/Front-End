@@ -40,7 +40,7 @@ export const ContainerInfoMovie = ({hasVideo,
                               
                                 }:ContainerInfoMovieProps)=>{
     
-    const {movieWatchMovie,cast} = useContext(MovieContext);
+    const {movieWatchMovie} = useContext(MovieContext);
 
     let movieProvider = movieWatchMovie as ISchemaWatchMovie
 
