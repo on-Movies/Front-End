@@ -8,10 +8,12 @@ import Yutube from 'react-youtube';
 import {ContainerInfoMovie} from '../../components/InfoMovieIndividual';
 import {CastMovie} from '../../components/CastMovie';
 import AliceCarousel, {} from 'react-alice-carousel';
+import { MovieFilter } from "../../components/MovieFilter";
+import { MovieSearch } from "../../components/MovieSearched";
 
 export const MovieIndividual = ()=>{
 
-    const {getMovieIndividual,movieIndividual,movieSimilares} = useContext(MovieContext);
+    const {getMovieIndividual,movieIndividual,movieSimilares,moviesFilters,moviesSearched} = useContext(MovieContext);
     let movie = movieIndividual as ISchemaMovieIndividual;
 
     const navigate = useNavigate();
@@ -33,8 +35,6 @@ export const MovieIndividual = ()=>{
     movieSimilares.map((movie)=>{
         itemsMovieSimilares.push(<img src={movie.poster_path} onClick={()=>{navigate(`../movie/${movie.id}`); window.location.reload();}}/>)
     })
-
-    console.log(itemsMovieSimilares);
 
     return(
 
@@ -69,6 +69,13 @@ export const MovieIndividual = ()=>{
                 />
 
                 </StyledContainerMovieSimilares>
+                {moviesFilters.length !== 0 ? <MovieFilter/> : moviesSearched.length !== 0 ? <MovieSearch/> : 
+            
+                    <>
+                   
+                    </>
+            
+            }
             </main>
 
         </>

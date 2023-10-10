@@ -27,14 +27,15 @@ export const MovieCategories = ()=>{
     const [numberPagination,setNumberPagination] = useState<number>(1);
 
     useEffect(()=>{
-        getMovieByCategories(18,setMovieCategoriesDrama,()=>1)
-        getMovieByCategories(28,setMovieCategoriesAction,()=>1)
-        getMovieByCategories(12,setMovieCategoriesAdventure,()=>1)
-        getMovieByCategories(16,setMovieCategoriesAnimation,()=>1)
-        getMovieByCategories(35,setMovieCategoriesComedy,()=>1)
-        getMovieByCategories(80,setMovieCategoriesCrime,()=>1)
-        getMovieByCategories(27,setMovieCategoriesHorror,()=>1)
-        getMovieByCategories(878,setMovieCategoriesScienceFiction,()=>1)
+        getMovieByCategories(18,setMovieCategoriesDrama,()=>{setNumberPagination(numberPagination + 1);
+           return numberPagination})
+        getMovieByCategories(28,setMovieCategoriesAction,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(12,setMovieCategoriesAdventure,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(16,setMovieCategoriesAnimation,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(35,setMovieCategoriesComedy,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(80,setMovieCategoriesCrime,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(27,setMovieCategoriesHorror,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(878,setMovieCategoriesScienceFiction,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
     },[])
 
     const array = [
@@ -96,22 +97,8 @@ export const MovieCategories = ()=>{
               <>
                 <TitlesCategories
                   title={element.nameCategorie}
-                  functionMovie={()=>getMovieByCategories(element.idCategories,element.setState,()=>{
-
-                    const test = document.getElementById('menos')
-                    if(test){
-                       
-                        test.addEventListener('click',(e)=>{
-                            e.preventDefault()
-                           
-                        })
-                    }
-
-                    setNumberPagination(numberPagination + 1)
-
-                    return numberPagination
-                
-                })}
+                  idGenre={element.idCategories}
+                  setMovieCategories={element.setState}
                 />
                 <AliceCarousel
                   mouseTracking

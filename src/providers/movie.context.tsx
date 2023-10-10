@@ -52,7 +52,7 @@ interface TMovieContext{
     moviesFilters: ISchemaMovie[]
     setMoviesFilters: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
 
-    getMovieSearched: (valueSearched: string) => Promise<void>;
+    getMovieSearched: (valueSearched: string,pagination:number) => Promise<void>;
 
     moviesSearched: ISchemaMovie[];
     setMoviesSearched: React.Dispatch<React.SetStateAction<ISchemaMovie[]>>
@@ -68,7 +68,8 @@ interface TMovieContext{
 
     movieSimilares:ISchemaMovie[];
 
-
+    searchValue: string;
+    setSearchValue: React.Dispatch<React.SetStateAction<string>>
 }
 
 export const valueFilter = {
@@ -107,6 +108,8 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
     const [cast, setCast] = useState<ISchemaAuthorsMovie | null>(null)
     const [movieSimilares, setMovieSimilares] = useState<Array<ISchemaMovie>>([])
+
+    const [searchValue, setSearchValue] = useState('');
 
     const navigate = useNavigate();
     
@@ -184,16 +187,21 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     }
 
     
-    const getMovieSearched = async(valueSearched:string)=>{
+    const getMovieSearched = async(valueSearched:string,pagination:number)=>{
 
-        const resultSearched:ISchemaMovie[] = (await api.get(`https://api.themoviedb.org/3/search/movie?query=${valueSearched}&language=pt-br`)).data.results
+        
+        const resultSearched:ISchemaMovie[] = (await api.get(`https://api.themoviedb.org/3/search/movie?query=${valueSearched}&language=pt-br&page=${pagination}`)).data.results
 
         resultSearched.map((movie)=>{
             movie.poster_path  = 'https://image.tmdb.org/t/p/w500' + movie.poster_path;
         })
 
+       if(resultSearched.length !== 0){
+           
         setMoviesSearched(resultSearched);
         setMoviesFilters([])
+
+       }
 
     }
 
@@ -278,7 +286,9 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             setWatchMovie,
             cast,
             setCast,
-            movieSimilares
+            movieSimilares,
+            searchValue,
+            setSearchValue
         }}>
 
             {children}

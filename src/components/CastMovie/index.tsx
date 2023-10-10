@@ -8,6 +8,17 @@ export const CastMovie = ()=>{
     const {cast} = useContext(MovieContext);
     const itemsCastMovie:React.ReactNode[] = [];
 
+    cast?.cast.map((cast)=>{
+        itemsCastMovie.push(<>
+            <div>
+                <img src={cast.profile_path}/>
+                <span>{cast.original_name}</span>
+
+               
+                <p>{cast.character}</p>
+            </div>
+        </>);
+    })
 
     useEffect(()=>{
 
