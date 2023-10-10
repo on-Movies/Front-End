@@ -1,16 +1,36 @@
-import { useState } from 'react';
+import { useState,useContext} from 'react';
 import {StyledTitlesContainer} from './style';
+import { MovieContext } from '../../providers/movie.context';
 
 interface ITitlesProps{
     title:string,
-    onClick?:number,
-    setNumberPagination?: (value: React.SetStateAction<number>) => void
-    functionMovie: (number:number)=>Promise<void> | ((genre: number, setMovieCategories: React.Dispatch<React.SetStateAction<JSX.Element[]>>,numberPagination:()=>number) => Promise<void>);
+    setMovieCategories: React.Dispatch<React.SetStateAction<JSX.Element[]>>,
+    idGenre:number,
 }
 
-export const TitlesCategories = ({title,functionMovie}:ITitlesProps)=>{
+export const TitlesCategories = ({title,idGenre,setMovieCategories}:ITitlesProps)=>{
 
     const [numberPagination,setNumberPagination] = useState<number>(1);
+    const {getMovieByCategories} = useContext(MovieContext);    
+
+
+    const handleLessClick = () => {
+        const newNumberPagination = numberPagination - 1;
+        console.log(newNumberPagination === 0);
+
+        setNumberPagination(newNumberPagination > 0 ? newNumberPagination : 1);
+        console.log(newNumberPagination === 0);
+        
+        getMovieByCategories(idGenre, setMovieCategories, () => newNumberPagination);
+      };
+    
+      const handleMoreClick = () => {
+        const newNumberPagination = numberPagination + 1;
+
+        setNumberPagination(newNumberPagination);
+       
+        getMovieByCategories(idGenre, setMovieCategories, () => newNumberPagination);
+      };
 
     return(
         <StyledTitlesContainer>
@@ -18,9 +38,9 @@ export const TitlesCategories = ({title,functionMovie}:ITitlesProps)=>{
 
 
             <ul className="pagination">
-                <li id='menos' onClick={()=>{setNumberPagination(numberPagination - 1); functionMovie(numberPagination)}}>❮</li>
+                <li id='menos' onClick={handleLessClick}>❮</li>
 
-                <li id='mais' onClick={()=>{setNumberPagination(numberPagination + 1); functionMovie(numberPagination)}}>❯</li>
+                <li id='mais' onClick={handleMoreClick}>❯</li>
             </ul>
         </StyledTitlesContainer>
     )
