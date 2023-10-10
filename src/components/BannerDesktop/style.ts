@@ -13,6 +13,7 @@ export const StyledContainerBannersIsDesktop = styled.div`
         img{
             width: 100%;
             height: 710px;
+            cursor: pointer;
         }
     }
 
@@ -29,6 +30,7 @@ export const StyledContainerBannersIsDesktop = styled.div`
             img{
                 width: 100%;
                 height: 300px;
+                cursor: pointer;
             }
         }
 
@@ -38,6 +40,7 @@ export const StyledContainerBannersIsDesktop = styled.div`
             img{
                 width: 100%;
                 height: 410px;
+                cursor: pointer;
             }
         }
     }

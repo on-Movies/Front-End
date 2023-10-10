@@ -14,6 +14,14 @@ export const MovieCategories = ()=>{
             movieCategoriesCrime,
             movieCategoriesHorror,
             movieCategoriesScienceFiction,
+            movieCategoriesFamily,
+            movieCategoriesMystery,
+            movieCategoriesRomance,
+            movieCategoriesWar,
+            setMovieCategoriesFamily,
+            setMovieCategoriesMystery,
+            setMovieCategoriesRomance,
+            setMovieCategoriesWar,
             setMovieCategoriesAnimation,
             setMovieCategoriesComedy,
             setMovieCategoriesCrime,
@@ -36,6 +44,10 @@ export const MovieCategories = ()=>{
         getMovieByCategories(80,setMovieCategoriesCrime,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
         getMovieByCategories(27,setMovieCategoriesHorror,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
         getMovieByCategories(878,setMovieCategoriesScienceFiction,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(10751,setMovieCategoriesFamily,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(9648,setMovieCategoriesMystery,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(10749,setMovieCategoriesRomance,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
+        getMovieByCategories(10752,setMovieCategoriesWar,()=>{setNumberPagination(numberPagination + 1); return numberPagination})
     },[])
 
     const array = [
@@ -86,6 +98,30 @@ export const MovieCategories = ()=>{
         nameCategorie:'Ficção Cientifica',
         state:movieCategoriesScienceFiction,
         setState:setMovieCategoriesScienceFiction
+      },
+      {
+        idCategories:10751,
+        nameCategorie:'Familia',
+        state:movieCategoriesFamily,
+        setState:setMovieCategoriesFamily
+      },
+      {
+        idCategories:9648,
+        nameCategorie:'Misterio',
+        state:movieCategoriesMystery,
+        setState:setMovieCategoriesMystery
+      },
+      {
+        idCategories:10749,
+        nameCategorie:'Romance',
+        state:movieCategoriesRomance,
+        setState:setMovieCategoriesRomance
+      },
+      {
+        idCategories:10752,
+        nameCategorie:'Guerras',
+        state:movieCategoriesWar,
+        setState:setMovieCategoriesWar
       },
         
     ]

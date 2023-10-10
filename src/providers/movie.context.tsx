@@ -42,6 +42,18 @@ interface TMovieContext{
     movieCategoriesScienceFiction: JSX.Element[];
     setMovieCategoriesScienceFiction: React.Dispatch<React.SetStateAction<JSX.Element[]>>
 
+    movieCategoriesFamily: JSX.Element[]
+    setMovieCategoriesFamily:React.Dispatch<React.SetStateAction<JSX.Element[]>>
+
+    movieCategoriesMystery: JSX.Element[]
+    setMovieCategoriesMystery: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+
+    movieCategoriesRomance:JSX.Element[]
+    setMovieCategoriesRomance: React.Dispatch<React.SetStateAction<JSX.Element[]>>
+
+    movieCategoriesWar:JSX.Element[]
+    setMovieCategoriesWar:React.Dispatch<React.SetStateAction<JSX.Element[]>>
+
     getMovieByCategories: (genre: number, setMovieCategories: React.Dispatch<React.SetStateAction<JSX.Element[]>>,numberPagination:()=>number) => Promise<void>
 
     movieFilter: (categories: string[], populariedade: number | boolean, minYear: string | boolean, maxYear: string | boolean,pagination:number) => Promise<void>
@@ -98,6 +110,12 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
     const [movieCategoriesHorror, setMovieCategoriesHorror] = useState<JSX.Element[]>([])
     const [movieCategoriesScienceFiction, setMovieCategoriesScienceFiction] = useState<JSX.Element[]>([])
 
+    const [movieCategoriesFamily, setMovieCategoriesFamily] = useState<JSX.Element[]>([])
+    const [movieCategoriesMystery, setMovieCategoriesMystery] = useState<JSX.Element[]>([])
+
+    const [movieCategoriesRomance, setMovieCategoriesRomance] = useState<JSX.Element[]>([])
+    const [movieCategoriesWar, setMovieCategoriesWar] = useState<JSX.Element[]>([])
+
     const [filter, setFilter] = useState(false);
     const [moviesFilters, setMoviesFilters] = useState<Array<ISchemaMovie>>([])
 
@@ -141,9 +159,9 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
     const getMovieHighlightWeek = async():Promise<void>=>{
         const result: ISchemaMovie[] = (await api.get('movie/top_rated?language=pt-br&page=1')).data.results;
-        result[10].poster_path = 'https://image.tmdb.org/t/p/w500' + result[10].poster_path
+        result[7].poster_path = 'https://image.tmdb.org/t/p/w500' + result[7].poster_path
         
-        setMovieHighlight(result[10]);
+        setMovieHighlight(result[7]);
     }
 
 
@@ -288,7 +306,15 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
             setCast,
             movieSimilares,
             searchValue,
-            setSearchValue
+            setSearchValue,
+            movieCategoriesFamily,
+            setMovieCategoriesFamily,
+            movieCategoriesMystery,
+            setMovieCategoriesMystery,
+            movieCategoriesRomance,
+            setMovieCategoriesRomance,
+            movieCategoriesWar,
+            setMovieCategoriesWar
         }}>
 
             {children}
