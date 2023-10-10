@@ -16,10 +16,8 @@ export const TitlesCategories = ({title,idGenre,setMovieCategories}:ITitlesProps
 
     const handleLessClick = () => {
         const newNumberPagination = numberPagination - 1;
-        console.log(newNumberPagination === 0);
 
         setNumberPagination(newNumberPagination > 0 ? newNumberPagination : 1);
-        console.log(newNumberPagination === 0);
         
         getMovieByCategories(idGenre, setMovieCategories, () => newNumberPagination);
       };
