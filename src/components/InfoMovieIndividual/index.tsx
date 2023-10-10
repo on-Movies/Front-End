@@ -88,10 +88,30 @@ export const ContainerInfoMovie = ({hasVideo,
                 <div className='div2'>
                    {movieProvider && 
                     <>
-                    Onde Comprar
-                     <ul>
-                         {movieProvider && 
-                             movieProvider.buy?.map((component)=>{
+                    Onde Assistir:
+                    {movieProvider.buy && 
+                        <>
+                             <ul>
+                                    <h3>Onde Comprar</h3>
+                                    {movieProvider.buy?.map((component)=>{
+                                        return(
+                                            <li>
+                                                <img src={component.logo_path} />
+                                            </li>
+                                        )
+                                    })
+                                
+                                }
+                            </ul><br/>
+                        </>
+                    
+                    }
+                   
+                   {movieProvider.rent && 
+                    <>
+                         <ul>
+                            <h3>Onde Alugar</h3>
+                             {movieProvider.rent?.map((component)=>{
                                  return(
                                      <li>
                                          <img src={component.logo_path} />
@@ -101,35 +121,28 @@ export const ContainerInfoMovie = ({hasVideo,
                          
                          }
                      </ul>
+                    </>
                     
-                  
-                   
-                    Onde Alugar
-                    <ul>
-                        {movieProvider && 
-                            movieProvider.rent?.map((component)=>{
-                                return(
-                                    <li>
-                                        <img src={component.logo_path} />
-                                    </li>
-                                )
-                            })
+                    }
+                    
+                    {movieProvider.flatrate && 
+                        <>
+                             <ul>
+                            <h3>Streamer</h3>
+                             {movieProvider.flatrate?.map((component)=>{
+                                 return(
+                                     <li>
+                                         <img src={component.logo_path} />
+                                     </li>
+                                 )
+                             })
+                         
+                         }
+                     </ul>
                         
-                        }
-                    </ul>
-                    Streamer
-                    <ul>
-                        {movieProvider && 
-                            movieProvider.flatrate?.map((component)=>{
-                                return(
-                                    <li>
-                                        <img src={component.logo_path} />
-                                    </li>
-                                )
-                            })
-                        
-                        }
-                    </ul>
+                        </>
+                    
+                    }
                     </>
                 }
 

@@ -3,7 +3,7 @@ import {styled} from 'styled-components';
 export const StyledContainerFilter = styled.div`
 
     width: 300px;
-    height: 450px;
+    height: 500px;
     background-color: var(--color-secound);
     position: fixed;
     top: 13%;

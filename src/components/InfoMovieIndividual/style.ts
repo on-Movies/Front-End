@@ -100,24 +100,27 @@ export const StyledContainerInfoMovie = styled.section<ContainerInfoMovie>`
         
         margin-top: 10px;
         display: flex;
-
-        width: 350px;
+      
+        width: 860px;
         flex-direction: column;
         line-height: 25px;
         
 
         ul{
           display: flex;
-          height: 95px;
-         
+          margin-top: 5px;
+          align-items: end;
+          justify-items: center;
           list-style: none;
           
           li{
-             
+             display: flex;
+       
             img{
              cursor: pointer;
               width: 50px;
               border: 1px solid black;
+              
             }
           }
         }

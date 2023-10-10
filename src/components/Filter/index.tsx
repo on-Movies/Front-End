@@ -20,6 +20,9 @@ export const Filter = ()=>{
         27: false,
         10752: false,
         878:false,
+        10751:false,
+        9648:false,
+        10749:false,
        
       });
 
@@ -31,6 +34,9 @@ export const Filter = ()=>{
         27: Yup.boolean(),
         10752: Yup.boolean(),
         878:Yup.boolean(),
+        10751:Yup.boolean(),
+        9648:Yup.boolean(),
+        10749:Yup.boolean(),
         populariedade: Yup.number(),
         minYear: Yup.date(),
         maxYear: Yup.date()
@@ -77,6 +83,10 @@ export const Filter = ()=>{
                     {id === '27' && 'Terror'}
                     {id === '10752' && 'Guerras'}
                     {id === '878' && 'Ficção Cientifica'}
+                    {id === '10751' && 'Familia'}
+                    {id === '9648' && 'Misterio'}
+                    {id === '10749' && 'Romance'}
+                    
                     <input
                     type="checkbox"
                     id={id}
