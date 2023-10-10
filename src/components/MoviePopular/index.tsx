@@ -1,14 +1,14 @@
 import AliceCarousel from "react-alice-carousel"
-import { StyledContainerFilmsPopulars } from "./style"
-import { useContext, useEffect} from "react";
+import { StyledContainerFilmsPopulars,StyledTitlesContainer} from "./style"
+import { useContext, useEffect, useState} from "react";
 import { MovieContext } from "../../providers/movie.context";
 import 'react-alice-carousel/lib/alice-carousel.css';
-import {TitlesCategories} from '../Titles/index';
 import {useNavigate} from 'react-router-dom';
 
 export const MoviePopular = ()=>{
 
     const {getMoviePopulars,moviePopulars} = useContext(MovieContext);
+    const [numberPagination,setNumberPagination] = useState<number>(1);
     const navigate = useNavigate();
 
     const itemsMoviePorpulars:React.ReactNode[] = [];
@@ -23,11 +23,34 @@ export const MoviePopular = ()=>{
         itemsMoviePorpulars.push(<img src={movie.poster_path} onClick={()=>navigate(`movie/${movie.id}`)}/>);
     })
 
+    const handleLessClick = () => {
+        const newNumberPagination = numberPagination - 1;
+        setNumberPagination(newNumberPagination > 0 ? newNumberPagination : 1);
+        
+        getMoviePopulars(newNumberPagination)
+      };
+    
+      const handleMoreClick = () => {
+        const newNumberPagination = numberPagination + 1;
+        setNumberPagination(newNumberPagination);
+       
+        getMoviePopulars(newNumberPagination)
+      };
+
 
     return(
 
         <StyledContainerFilmsPopulars>
-        <TitlesCategories title="Filmes Populares" functionMovie={getMoviePopulars}/>
+            <StyledTitlesContainer>
+                <h3>Filmes Populares</h3>
+
+                
+                <ul className="pagination">
+                    <li id='menos' onClick={handleLessClick}>❮</li>
+
+                    <li id='mais' onClick={handleMoreClick}>❯</li>
+                </ul>
+            </StyledTitlesContainer>
                     <AliceCarousel 
                         mouseTracking items={itemsMoviePorpulars} 
                         infinite={false} 

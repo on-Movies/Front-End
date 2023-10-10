@@ -38,7 +38,6 @@ export const Header = ()=>{
                 <StyledMenuButtons>
                     <button className='buttonFiltrar' onClick={()=>{setFilter(filter ? false : true)}}>Filtrar</button>
                     <span>Filmes</span>
-                    <span>Series</span>
                 </StyledMenuButtons>
                 }
 
@@ -48,8 +47,8 @@ export const Header = ()=>{
 
             <div>
                 <button className='buttonFiltrar' onClick={()=>{setFilter(filter ? false : true)}}>Filtrar</button>
-                <span>Filmes</span>
-                <span>Series</span>
+               
+               
             </div>
 
             }

@@ -1,15 +1,15 @@
-import { useState,useContext} from 'react';
+import {useContext} from 'react';
 import {StyledSearchBar,StyledContainerSearcheBar,SearchIcon} from './style';
 import {AiOutlineSearch} from 'react-icons/ai';
 import {MovieContext} from '../../providers/movie.context';
 
 export const SearchBar = ()=>{
-    const {getMovieSearched} = useContext(MovieContext);
-    const [searchValue, setSearchValue] = useState('');
+    const {getMovieSearched,searchValue,setSearchValue} = useContext(MovieContext);
+   
 
 
     const handleSearch = () => {
-            getMovieSearched(searchValue);
+            getMovieSearched(searchValue,1);
       };
 
 
