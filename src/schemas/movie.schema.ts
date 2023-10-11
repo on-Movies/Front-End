@@ -168,4 +168,21 @@ export const schemaAuthorsMovie = z.object({
   ),
 })
 
+export const schemaInfoMovie = z.object({
+      hasVideo: z.string(),
+      img:z.string(),
+      imgMobille:z.string(),
+      nameMovie:z.string(),
+      yearRealese:z.string(),
+      descriptin:z.string(),
+      genres:z.array(z.object({
+        id:z.number(),
+        name:z.string()
+      })),
+      popularity:z.number(),
+      runtime: z.number(),
+      vote_average: z.number(),
+      vote_count:z.number(),
+})
+
 

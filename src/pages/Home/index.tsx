@@ -1,7 +1,6 @@
 import {useEffect, useState,useContext} from 'react';
-import 'react-alice-carousel/lib/alice-carousel.css';
-import { BannerDesktop } from "../../components/BannerDesktop";
-import { BannerMobille } from "../../components/BannerMobille";
+import { BannerDesktop } from "../../components/Banners/BannerDesktop";
+import { BannerMobille } from "../../components/Banners/BannerMobille";
 import { MoviePopular } from '../../components/MoviePopular';
 import { HighlightWeek } from '../../components/HighlightWeek';
 import {MovieCategories} from '../../components/MovieCategories';

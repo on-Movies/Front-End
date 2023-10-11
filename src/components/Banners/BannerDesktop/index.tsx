@@ -1,7 +1,7 @@
 import AliceCarousel from 'react-alice-carousel';
 import {StyledContainerBannersIsDesktop} from './style';
 import { useContext, useEffect } from 'react';
-import { MovieContext } from '../../providers/movie.context';
+import { MovieContext } from '../../../providers/movie.context';
 import { useNavigate } from 'react-router-dom';
 
 

@@ -1,5 +1,5 @@
 import {StyledSectionCastMovie} from './style';
-import {useEffect,useContext} from 'react';
+import {useContext} from 'react';
 import {MovieContext} from '../../providers/movie.context';
 import AliceCarousel from 'react-alice-carousel';
 
@@ -19,22 +19,6 @@ export const CastMovie = ()=>{
             </div>
         </>);
     })
-
-    useEffect(()=>{
-
-        cast?.cast.map((cast)=>{
-            itemsCastMovie.push(<>
-                <div>
-                    <img src={cast.profile_path}/>
-                    <span>{cast.original_name}</span>
-
-                   
-                    <p>{cast.character}</p>
-                </div>
-            </>);
-        })
-
-    },[cast])
 
     return(
 

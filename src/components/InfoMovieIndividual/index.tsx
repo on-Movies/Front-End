@@ -3,28 +3,8 @@ import {AiFillStar} from 'react-icons/ai';
 import {BiTimeFive} from 'react-icons/bi';
 import {useContext,useEffect} from 'react';
 import {MovieContext} from '../../providers/movie.context';
-import { ISchemaWatchMovie } from '../../interfaces/movie.interface';
+import { ISchemaInfoMovie, ISchemaWatchMovie } from '../../interfaces/movie.interface';
 
-interface ContainerInfoMovieProps {
-    hasVideo: string;
-    img:string
-    imgMobille:string
-    nameMovie:string
-    yearRealese:string
-    descriptin:string
-    genres: {
-        id: number;
-        name: string;
-    }[] | null
-    popularity:number
-    runtime: number,
-    vote_average: number,
-    vote_count:number,
-
-  }
-
-
-  
 
 export const ContainerInfoMovie = ({hasVideo,
                                     img,
@@ -36,18 +16,14 @@ export const ContainerInfoMovie = ({hasVideo,
                                     popularity,
                                     runtime,
                                     vote_average,
-                                    vote_count,
+                                   vote_count,
                               
-                                }:ContainerInfoMovieProps)=>{
+                                }:ISchemaInfoMovie)=>{
     
     const {movieWatchMovie} = useContext(MovieContext);
 
     let movieProvider = movieWatchMovie as ISchemaWatchMovie
-
-    useEffect(()=>{
-        movieProvider = movieWatchMovie as ISchemaWatchMovie
-    },[])
-
+    
     useEffect(()=>{
         movieProvider = movieWatchMovie as ISchemaWatchMovie
 
