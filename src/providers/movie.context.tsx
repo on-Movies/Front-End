@@ -2,6 +2,7 @@ import { ReactNode, createContext,useState} from "react";
 import {api} from '../services/api';
 import { ISchemaAuthorsMovie, ISchemaMovie,ISchemaMovieIndividual, ISchemaWatchMovie} from '../interfaces/movie.interface';
 import {useNavigate} from 'react-router-dom';
+import { date } from "zod";
 
 interface TMovieProviderProps {
     children: ReactNode
@@ -159,9 +160,12 @@ export const MovieProvider = ({children}:TMovieProviderProps)=>{
 
     const getMovieHighlightWeek = async():Promise<void>=>{
         const result: ISchemaMovie[] = (await api.get('movie/top_rated?language=pt-br&page=1')).data.results;
-        result[7].poster_path = 'https://image.tmdb.org/t/p/w500' + result[7].poster_path
+        const day = new Date()
+
         
-        setMovieHighlight(result[7]);
+        result[day.getDate()].poster_path = 'https://image.tmdb.org/t/p/w500' + result[day.getDate()].poster_path
+        
+        setMovieHighlight(result[day.getDate()]);
     }
 
 
