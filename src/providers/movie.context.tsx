@@ -2,7 +2,6 @@ import { ReactNode, createContext,useState} from "react";
 import {api} from '../services/api';
 import { ISchemaAuthorsMovie, ISchemaMovie,ISchemaMovieIndividual, ISchemaWatchMovie} from '../interfaces/movie.interface';
 import {useNavigate} from 'react-router-dom';
-import { date } from "zod";
 
 interface TMovieProviderProps {
     children: ReactNode
